@@ -1,82 +1,123 @@
-const express = require("express");
-const { check } = require("express-validator");
+const express = require('express');
+const { Op } = require('sequelize');
+const bcrypt = require('bcryptjs');
 
-const { handleValidationErrors } = require("../../utils/validation");
-const { setTokenCookie, restoreUser } = require("../../utils/auth");
-const { User } = require("../../db/models");
+const { setTokenCookie, restoreUser } = require('../../utils/auth');
+const { User } = require('../../db/models');
+
+const { check } = require('express-validator');
+const { handleValidationErrors } = require('../../utils/validation');
 
 const router = express.Router();
 
 const validateLogin = [
-  check("username")
-    .exists({ checkFalsy: true })
-    .notEmpty()
-    .withMessage("Please provide a valid username."),
-  check("password")
-    .exists({ checkFalsy: true })
-    .withMessage("Please provide a password."),
-  handleValidationErrors
+    check('credential')
+        .exists({ checkFalsy: true })
+        .notEmpty()
+        .withMessage('Please provide a valid email or username.'),
+    check('password')
+        .exists({ checkFalsy: true })
+        .withMessage('Please provide a password.'),
+    handleValidationErrors
 ];
 
-// Log in
-router.post(
-  '/',
-  validateLogin,
-  async (req, res, next) => {
-    const { username, password } = req.body;
-    console.log(username);
-    const user = await User.login({ username, password });
+//Get Current User
+router.get('/', async (req, res, next) => {
+    try {
+        if (req.user === null)
+            return res.status(200).json({
+                user: null
+            })
 
-    if (!user) {
-      const err = new Error('Login failed');
-      err.status = 401;
-      err.title = 'Login failed';
-      err.errors = ['The provided credentials were invalid.'];
-      return next(err);
+        const currentUser = await User.findByPk(parseInt(req.user.id));
+
+        res.json({
+            user: {
+                id: currentUser.id,
+                firstName: currentUser.firstName,
+                lastName: currentUser.lastName,
+                email: currentUser.email,
+                username: currentUser.username,
+                profilePicUrl: currentUser.profilePicUrl
+            }
+        } || { user: null });
+    } catch (error) {
+        next(error);
     }
+});
 
-    await setTokenCookie(res, user);
+//Log in
+router.post(
+    '/',
+    validateLogin,
+    async (req, res, next) => {
+        const { credential, password } = req.body;
 
-    return res.json({
-      user
-    });
-  }
+        const user = await User.unscoped().findOne({
+            where: {
+                [Op.or]: {
+                    username: credential,
+                    email: credential
+                }
+            }
+        });
+
+        if (!user || !bcrypt.compareSync(password, user.hashedPassword.toString())) {
+            const err = new Error('Login failed');
+            err.status = 401;
+            err.title = 'Login failed';
+            err.errors = { credential: 'The provided credentials were invalid.' };
+            return next(err);
+        }
+
+        const safeUser = {
+            id: user.id,
+            email: user.email,
+            username: user.username,
+            firstName: user.firstName,
+            lastName: user.lastName,
+            profilePicUrl: user.profilePicUrl
+        };
+
+        await setTokenCookie(res, safeUser);
+
+        return res.json({
+            user: safeUser
+        });
+    }
 );
 
-// Log out
-router.delete(
-  '/',
-  (_req, res) => {
-    res.clearCookie('token');
-    return res.json({ message: 'success' });
-  }
-);
+//Log out
+router.delete('/', (_req, res) => {
+    try {
+        res.clearCookie('token');
+        return res.json({ message: 'success' })
+    } catch (error) {
+        next({
+            message: 'Logout error. (DELETE) backend/routes/api/session.js'
+        })
+    }
+});
 
 // Restore session user
 router.get(
-  '/',
-  restoreUser,
-  (req, res) => {
-    const { user } = req;
-    if (user) {
-      return res.json({
-        user: user.toSafeObject()
-      });
-    } else return res.json({ user: null });
-  }
+    '/',
+    (req, res) => {
+        const { user } = req;
+        if (user) {
+            const safeUser = {
+                id: user.id,
+                firstName: user.firstName,
+                lastName: user.lastName,
+                email: user.email,
+                username: user.username,
+                profilePicUrl: user.profilePicUrl
+            };
+            return res.json({
+                user: safeUser
+            });
+        } else return res.json({ user: null });
+    }
 );
-
-router.get(
-  'images/',
-  (req, res) => {
-    const { user } = req;
-    if (user) {
-      return res.json({
-        user: user.toSafeObject()
-      });
-    } else return res.json({ user: null });
-  }
-);
-
 
 module.exports = router;
