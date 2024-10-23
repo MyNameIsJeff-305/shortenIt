@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
-import * as sessionActions from "./actions/session";
+import * as sessionActions from "./store/session";
 
 import './index.css';
 import Splash from "./components/Splash";
@@ -21,7 +21,7 @@ function Layout() {
         sessionUser ? (
           <>
             <header className="app-header">
-              <h1>Welcome to the App!</h1>
+              <h1>This is Header</h1>
             </header>
             <main className="app-main">
               <Outlet />
