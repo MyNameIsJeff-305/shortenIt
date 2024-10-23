@@ -1,32 +1,28 @@
-const express = require("express");
+const express = require('express');
 const router = express.Router();
-const apiRouter = require("./api");
+const apiRouter = require('./api');
 
-router.use("/api", apiRouter);
+router.use('/api', apiRouter);
 
-const { Link } = require('../db/models');
+if (process.env.NODE_ENV === 'production') {
+  const path = require('path');
 
-// Redirect route for shortened links
-router.get('/:shortLink', async (req, res) => {
-  const { shortLink } = req.params;
+  router.get('/', (req, res) => {
+    res.cookie('XSRF-TOKEN', req.csrfToken());
+    res.sendFile(
+      path.resolve(__dirname, '../../frontend', 'dist', 'index.html')
+    );
+  });
 
-  console.log(shortLink, "THIS IS THE LINK");
+  router.use(express.static(path.resolve("../frontend/dist")));
 
-  try {
-    // Find the original URL associated with the short link
-    const link = await Link.findOne({ where: { shortLink } });
-
-    if (link) {
-      // Redirect to the original URL
-      res.redirect(link.link);
-    } else {
-      // If the short link is not found, return a 404 error
-      res.status(404).send('Link not found');
-    }
-  } catch (err) {
-    res.status(500).json({ message: 'Server error' });
-  }
-});
+  router.get(/^(?!\/?api).*/, (req, res) => {
+    res.cookie('XSRF-TOKEN', req.csrfToken());
+    res.sendFile(
+      path.resolve(__dirname, '../../frontend', 'dist', 'index.html')
+    );
+  });
+}
 
 if (process.env.NODE_ENV !== 'production') {
   router.get("/api/csrf/restore", (req, res) => {
