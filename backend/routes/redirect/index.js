@@ -1,4 +1,4 @@
-import { Link } from '../../db/models';
+const { Link, Click } = require('../../db/models');
 
 const router = require('express').Router();
 
@@ -12,7 +12,7 @@ router.get('/redirect/:shortLink', async (req, res) => {
 
         if (link) {
             // Increment click count
-            await link.increment('clickCount');
+            await Click.create({ linkId: link.id });
             // Redirect to the original URL
             res.redirect(link.link);
         } else {

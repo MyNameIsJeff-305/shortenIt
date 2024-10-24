@@ -1,5 +1,5 @@
 const express = require('express');
-const { Link } = require('../../db/models');
+const { Link, Click } = require('../../db/models');
 const { requireAuth } = require('../../utils/auth');
 const crypto = require('crypto');
 
@@ -21,8 +21,6 @@ router.get('/', requireAuth, async (req, res) => {
             }
         });
 
-        console.log(links, "THIS ARE LINKS");
-
         return res.json(links);
     } catch (error) {
         res.status(500).json({ error: error.message });
@@ -39,10 +37,26 @@ router.get('/:id', requireAuth, async (req, res) => {
                 userId: userId
             }
         });
+        
         if (!link) {
             return res.status(404).json({ error: 'Link not found' });
         }
-        return res.json(link);
+
+        const clicks = await Click.findAll({
+            where: {
+                linkId: link.id
+            }
+        });
+
+        console.log(link, "THIS IS LINK")
+
+        return res.json({
+            id: link.id,
+            name: link.name,
+            link: link.link,
+            shortLink: link.shortLink,
+            clicks: clicks
+        });
     } catch (error) {
         res.status(500).json({ error: error.message });
     }

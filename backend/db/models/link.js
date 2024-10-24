@@ -6,6 +6,7 @@ module.exports = (sequelize, DataTypes) => {
   class Link extends Model {
     static associate(models) {
       Link.belongsTo(models.User, { foreignKey: 'userId', onDelete: 'CASCADE' });
+      Link.hasMany(models.Click, { foreignKey: 'linkId', onDelete: 'CASCADE' });
     }
   }
   Link.init({
@@ -31,11 +32,6 @@ module.exports = (sequelize, DataTypes) => {
     shortLink: {
       type: DataTypes.STRING(256),
       allowNull: false,
-    },
-    clickCount: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      defaultValue: 0
     }
   }, {
     sequelize,
