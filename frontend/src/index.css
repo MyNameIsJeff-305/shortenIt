@@ -50,3 +50,16 @@ button:hover {
     background-color: var(--color-primary);
     opacity: 0.9;
 }
+
+.app-container {
+    display: grid;
+    min-height: 100vh;
+    grid-template-rows: auto 1fr auto;
+}
+
+.app-main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}

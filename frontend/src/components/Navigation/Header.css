@@ -1,8 +1,9 @@
 .main-header {
     display: flex;
+    height: auto;
     justify-content: space-between;
     align-items: center;
-    padding: 1rem 2rem;
+    padding: 0rem 1rem;
     background-color: #33333349;
     color: white;
     font-size: small;

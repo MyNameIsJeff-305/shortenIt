@@ -1,4 +1,4 @@
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
 import * as sessionActions from "./store/session";
@@ -12,7 +12,7 @@ import Header from "./components/Navigation";
 function Layout() {
   const dispatch = useDispatch();
 
-  const sessionUser = useSelector(state => state.session.user);
+  // const sessionUser = useSelector(state => state.session.user);
 
   useEffect(() => {
     dispatch(sessionActions.restoreUser());
@@ -20,7 +20,9 @@ function Layout() {
 
   return (
     <div className="app-container">
-      <Header />
+      <header>
+        <Header />
+      </header>
       <main className="app-main">
         <Outlet />
       </main>

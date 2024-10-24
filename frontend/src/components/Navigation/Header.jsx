@@ -5,13 +5,13 @@ import './Header.css';
 
 export default function Header() {
     return (
-        <header className='main-header'>
+        <div className='main-header'>
             <div>
                 <NavLogo />
             </div>
             <div>
                 <ProfileButton />
             </div>
-        </header>
+        </div>
     );
 }
