@@ -48,8 +48,6 @@ router.get('/:id', requireAuth, async (req, res) => {
             }
         });
 
-        console.log(link, "THIS IS LINK")
-
         return res.json({
             id: link.id,
             name: link.name,

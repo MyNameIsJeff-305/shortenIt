@@ -3,11 +3,16 @@ import { useEffect, useState } from 'react';
 
 import { getAllLinksThunk } from '../../store/links';
 
+import { FaPlus } from "react-icons/fa";
+
 import './Links.css';
+
 import LinkCard from './LinkCard';
 import LinkDetails from './LinkDetails';
 
 export default function Links() {
+    const [linkChecker, setLinkChecker] = useState(false);
+
     const dispatch = useDispatch();
 
     const links = useSelector(state => state.links.allLinks);
@@ -15,6 +20,7 @@ export default function Links() {
 
     useEffect(() => {
         dispatch(getAllLinksThunk());
+        set
     }, [dispatch]);
 
     if (!links) return (
@@ -26,7 +32,17 @@ export default function Links() {
     return (
         <div className='links-main-container'>
             <section className='my-links-container'>
-                <h1>My Links</h1>
+                <div className='links-main-header'>
+                    <div>
+                        <h1>My Links</h1>
+                    </div>
+                    <div>
+                        <button>
+                            <FaPlus />
+                            Add Link
+                        </button>
+                    </div>
+                </div>
                 <div className='link-cards-container'>
                     {
                         links.map(link => (

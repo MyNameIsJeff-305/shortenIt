@@ -10,6 +10,7 @@
     --color-white: #fff;
     --color-black: #000;
     --background-color: #f8f9fa;
+    --background-color-semitransparent: #f8f9fa6b;
     --text-color: #212529;
 }
 
@@ -25,6 +26,7 @@ body.dark-mode {
     --color-white: #fff;
     --color-black: #000;
     --background-color: #212529;
+    --background-color-semitransparent: #2125296b;
     --text-color: #f8f9fa;
     height: auto;
     /* width: 100vw; */
@@ -53,7 +55,7 @@ button:hover {
 
 .app-container {
     display: grid;
-    min-height: 100vh;
+    min-height: 99vh;
     grid-template-rows: auto 1fr auto;
 }
 
