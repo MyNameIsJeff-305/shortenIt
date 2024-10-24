@@ -1,8 +1,10 @@
 const express = require('express');
 const router = express.Router();
 const apiRouter = require('./api');
+const redirectRouter = require('./redirect');
 
 router.use('/api', apiRouter);
+router.use('/r', redirectRouter);
 
 if (process.env.NODE_ENV === 'production') {
   const path = require('path');

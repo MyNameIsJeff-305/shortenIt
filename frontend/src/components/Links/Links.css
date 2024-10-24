@@ -1,0 +1,35 @@
+.links-main-container {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+    gap: 40px;
+}
+
+.my-links-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    gap: 20px;
+    width: 25%;
+    align-items: stretch;
+    /* max-width: 600px; */
+    padding: 20px;
+}
+
+.link-details-container {
+    display: flex;
+    flex-direction: column;
+    width: 75%;
+    padding: 20px;
+    align-items: center;
+    justify-content: center;
+}
+
+.link-cards-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}

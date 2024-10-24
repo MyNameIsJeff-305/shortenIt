@@ -31,6 +31,11 @@ module.exports = (sequelize, DataTypes) => {
     shortLink: {
       type: DataTypes.STRING(256),
       allowNull: false,
+    },
+    clickCount: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      defaultValue: 0
     }
   }, {
     sequelize,
