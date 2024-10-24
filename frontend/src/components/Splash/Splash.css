@@ -1,8 +1,7 @@
 /* Base styling */
 .splash-page {
-    font-family: 'Arial', sans-serif;
+    /* height: 100vh; */
     color: var(--text-color);
-    background-color: var(--background-color);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -11,13 +10,12 @@
 /* Hero Section */
 .hero-section {
     position: relative;
-    width: 100%;
-    height: 70vh;
-    background: url('https://images.unsplash.com/photo-1499083097717-81035ee07b0f?crop=entropy&fit=crop&fm=jpg&h=800&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&q=80&w=1200') center/cover;
+    height: 100vh;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
-    overflow: hidden;
+    text-align: center;
 }
 
 .hero-overlay {
@@ -26,7 +24,7 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
+    /* background-color: rgba(0, 0, 0, 0.5); */
     z-index: 1;
     animation: fadeIn 1s ease-in;
 }
@@ -39,6 +37,21 @@
     max-width: 600px;
     padding: 2rem;
     animation: slideUp 1s ease-out;
+}
+
+.logo-hero {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+    animation: fadeInUp 0.5s ease-out;
+}
+
+.logo-hero img {
+    width: 100px;
+    height: auto;
 }
 
 .hero-content h1 {
@@ -55,8 +68,9 @@
 }
 
 .cta-button {
-    background-color: var(--color-warning);
-    padding: 0.75rem 2rem;
+    width: auto;
+    background-color: var(--color-primary);
+    padding: 1rem 2rem;
     font-size: 1rem;
     border-radius: 0.5rem;
     cursor: pointer;

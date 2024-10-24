@@ -5,6 +5,9 @@ import * as sessionActions from "./store/session";
 
 import './index.css';
 import Splash from "./components/Splash";
+import LoginSignup from "./components/LoginSignup/LoginSignup";
+import Links from "./components/Links/Links";
+import Header from "./components/Navigation";
 
 function Layout() {
   const dispatch = useDispatch();
@@ -17,25 +20,13 @@ function Layout() {
 
   return (
     <div className="app-container">
-      {
-        sessionUser ? (
-          <>
-            <header className="app-header">
-              <h1>This is Header</h1>
-            </header>
-            <main className="app-main">
-              <Outlet />
-            </main>
-            <footer className="app-footer">
-              <span>This is footer</span>
-            </footer>
-          </>
-        ) : (
-          <main className="app-main">
-            <Outlet />
-          </main>
-        )
-      }
+      <Header />
+      <main className="app-main">
+        <Outlet />
+      </main>
+      <footer className="app-footer">
+        <span>This is footer</span>
+      </footer>
     </div>
   )
 }
@@ -47,6 +38,14 @@ const router = createBrowserRouter([
       {
         path: "/",
         element: <Splash />
+      },
+      {
+        path: "/login",
+        element: <LoginSignup />
+      },
+      {
+        path: "links",
+        element: <Links />
       }
     ]
   }

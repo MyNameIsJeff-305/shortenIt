@@ -1,0 +1,32 @@
+/* NavLogo Styles */
+
+/* Container for the logo */
+.nav-logo-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    padding: 10px;
+    gap: 10px;
+    /* background-color: var(--header-bg-color); Use theme-based header background color */
+    transition: background-color 0.3s ease;
+    border-radius: 8px;
+    /* Optionally round the edges */
+}
+
+/* Logo image */
+.logo-main {
+    max-width: 150px;
+    height: auto;
+    transition: transform 0.3s ease;
+    /* Add a subtle transition effect */
+}
+
+.nav-logo-container img {
+    width: 50px;
+}
+
+.nav-logo-container:hover .logo-main {
+    transform: scale(1.1);
+    /* Slightly enlarge the logo on hover */
+}
