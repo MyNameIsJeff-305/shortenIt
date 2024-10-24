@@ -8,6 +8,7 @@ import Splash from "./components/Splash";
 import LoginSignup from "./components/LoginSignup/LoginSignup";
 import Links from "./components/Links/Links";
 import Header from "./components/Navigation";
+import Footer from "./components/Navigation/Footer";
 
 function Layout() {
   const dispatch = useDispatch();
@@ -27,7 +28,7 @@ function Layout() {
         <Outlet />
       </main>
       <footer className="app-footer">
-        <span>This is footer</span>
+        <Footer />
       </footer>
     </div>
   )

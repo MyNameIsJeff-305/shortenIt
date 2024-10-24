@@ -121,17 +121,7 @@ export default function LoginSignup() {
     return (
         <main className='login-main'>
             <section className='left-section'>
-                <div className="logo">
-                    <img style={{ cursor: "pointer" }} src="/assets/shortenIt-logo.png" alt="logo" onClick={() => navigate('/')} />
-                </div>
-                <div className="hero-image">
-                    <img src='/assets/splash-image.png' alt="ticketFlow Interface" />
-                </div>
-                <aside className="left-text">
-                    <p className='left-text-description' style={{ fontSize: "12px", textAlign: "left" }}>
-                        Transform long URLs into manageable links and track their performance with ease. Simple, fast, and reliable.
-                    </p>
-                </aside>
+                <img src='/assets/splash-image.png' alt="ticketFlow Interface" />
             </section>
             <section className='right-section'>
                 <div className='form-container'>
@@ -149,7 +139,7 @@ export default function LoginSignup() {
                                 }
                                 <label>
                                     Password
-                                    <input style={{width:"95%"}} type="password" name="password" value={password} onChange={(e) => setPassword(e.target.value)} />
+                                    <input style={{ width: "95%" }} type="password" name="password" value={password} onChange={(e) => setPassword(e.target.value)} />
                                 </label>
                                 {
                                     errors.password && (
@@ -165,7 +155,7 @@ export default function LoginSignup() {
                             </form>
                         ) : (
                             <form className="login-form">
-                                <div className="name-container" style={{gap: "30px", width: "95%"}}>
+                                <div className="name-container" style={{ gap: "30px", width: "95%" }}>
                                     <label>
                                         First Name
                                         <input type="text" name="firstName" value={firstName} onChange={(e) => setFirstName(e.target.value)} />
@@ -214,7 +204,7 @@ export default function LoginSignup() {
                                 </label>
                                 <label>
                                     Create Password
-                                    <input type="password" name="createPassword" style={{width:"95%"}} value={createPassword} onChange={(e) => setCreatePassword(e.target.value)} />
+                                    <input type="password" name="createPassword" style={{ width: "95%" }} value={createPassword} onChange={(e) => setCreatePassword(e.target.value)} />
                                 </label>
                                 {
                                     errors.createPassword && (
@@ -223,7 +213,7 @@ export default function LoginSignup() {
                                 }
                                 <label>
                                     Confirm Password
-                                    <input type="password" name="confirmPassword" style={{width:"95%"}} value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} />
+                                    <input type="password" name="confirmPassword" style={{ width: "95%" }} value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} />
                                 </label>
                                 {
                                     errors.confirmPassword && (

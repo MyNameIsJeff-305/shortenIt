@@ -66,8 +66,7 @@ function ProfileButton() {
                 </>
             ) : (
                 <div className="container-right">
-                    <button onClick={() => navigate("/login")}>Log In</button>
-                    <button onClick={() => navigate("/signup")}>Sign Up</button>
+                    <button onClick={() => navigate("/login")}>Log In/Sign Up</button>
                 </div>)}
         </div>
     );

@@ -1,7 +1,7 @@
 /* Main Container */
 .login-main {
     display: flex;
-    height: 100vh;
+    /* height: 100vh; */
     /* background: var(--login-bg); */
     color: var(--text-color);
     background: var(--background-gradient);
@@ -15,30 +15,17 @@
 /* Left Section */
 .left-section {
     flex: 1;
-    padding: 40px;
-    /* background-color: var(--header-bg-color); */
-    /* Apply theme background */
     display: flex;
     flex-direction: column;
-    align-items: start;
-    justify-content: space-between;
+    align-items: center;
+    justify-content: center;
     text-align: center;
-}
-
-.left-section .logo img {
-    max-width: 150px;
-    margin-bottom: 20px;
-}
-
-.left-text-description {
-    font-size: 1.2rem;
-    line-height: 1.6;
-    color: var(--text-color);
 }
 
 /* Right Section */
 .right-section {
     flex: 1;
+    min-height: 82vh;
     padding: 40px;
     display: flex;
     flex-direction: column;
@@ -153,26 +140,6 @@ button:hover:not(:disabled) {
     /* Change color on hover */
 }
 
-.logo {
-    /* border-radius: 50%; */
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 10px;
-    overflow: hidden;
-    transition: transform 0.3s;
-}
-
-.logo:hover {
-    transform: scale(1.1);
-}
-
-.logo img {
-    width: 45%;
-    height: auto;
-}
-
-
 @-webkit-keyframes AnimationName {
     0% {
         background-position: 0% 50%
@@ -215,11 +182,10 @@ button:hover:not(:disabled) {
     }
 }
 
-.hero-image img {
+.left-section img {
     max-width: 90%;
     height: auto;
     animation: float 4s ease-in-out infinite;
-    /* Add the float animation */
 }
 
 /* Floating Animation */
