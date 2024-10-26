@@ -88,7 +88,7 @@ export default function LoginSignup() {
     const handleDemoSubmit = async (e) => {
         e.preventDefault();
 
-        dispatch(login({ credential: 'DemoEmp5', password: 'password' }))
+        dispatch(login({ credential: 'demo', password: 'password' }))
             .then(() => navigate("/links"))
             .catch(async (res) => {
                 const data = await res.json();

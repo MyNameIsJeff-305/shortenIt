@@ -4,7 +4,7 @@ const router = require('express').Router();
 
 const { restoreUser } = require("../../utils/auth.js");
 
-router.get('/redirect/:shortLink', async (req, res) => {
+router.get('/:shortLink', async (req, res) => {
     const { shortLink } = req.params;
     try {
         // Find the link based on the short link

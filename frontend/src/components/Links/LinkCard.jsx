@@ -3,13 +3,19 @@ import { useDispatch } from 'react-redux';
 import QRCode from 'react-qr-code';
 
 import './LinkCard.css';
-import { getLinkThunk } from '../../store/links';
+import { getLinkThunk, redirectThunk } from '../../store/links';
 
 export default function LinkCard({ link }) {
     const dispatch = useDispatch();
 
     const handleClick = () => {
         dispatch(getLinkThunk(link.id));
+    }
+
+    const clickOnLink = (e) => {
+        e.preventDefault();
+
+        return dispatch(redirectThunk(`${link.shortLink}`));
     }
 
     return (
@@ -20,9 +26,9 @@ export default function LinkCard({ link }) {
                 </div>
                 <div className='link-card-body'>
                     <p className='original-link'>{link.link}</p>
-                    <a href={link.shortLink} target='_blank' rel='noreferrer' className='short-link'>
+                    <p className='short-link' onClick={clickOnLink}>
                         {link.shortLink}
-                    </a>
+                    </p>
                 </div>
             </div>
             <div className='link-card-qr'>

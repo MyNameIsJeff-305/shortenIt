@@ -9,6 +9,8 @@ import './Links.css';
 
 import LinkCard from './LinkCard';
 import LinkDetails from './LinkDetails';
+import AddLink from '../AddLink/AddLink';
+import OpenModalMenuItem from '../OpenModalMenuItem/OpenModalMenuItem';
 
 export default function Links() {
     const [linkChecker, setLinkChecker] = useState(false);
@@ -20,8 +22,8 @@ export default function Links() {
 
     useEffect(() => {
         dispatch(getAllLinksThunk());
-        set
-    }, [dispatch]);
+        setLinkChecker(false);
+    }, [dispatch, linkChecker]);
 
     if (!links) return (
         <div className='loading-container'>
@@ -39,7 +41,11 @@ export default function Links() {
                     <div>
                         <button>
                             <FaPlus />
-                            Add Link
+                            <OpenModalMenuItem 
+                                modalComponent={<AddLink setLinkChecker={setLinkChecker} />}
+                                itemText='Add Link'
+                                onModalClose={() => setLinkChecker(true)}
+                            />
                         </button>
                     </div>
                 </div>

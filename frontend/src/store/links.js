@@ -6,6 +6,7 @@ const GET_LINK = "links/getLink";
 const ADD_LINK = "links/addLink";
 const EDIT_LINK = "links/editLink";
 const DELETE_LINK = "links/deleteLink";
+const REDIRECT = "links/redirect";
 
 //ACTION CREATORS
 const getLinks = (links) => {
@@ -43,6 +44,13 @@ const deleteLink = (link) => {
     }
 }
 
+const redirect = (link) => {
+    return {
+        type: REDIRECT,
+        payload: link
+    }
+}
+
 //THUNKS
 export const getAllLinksThunk = () => async (dispatch) => {
     const response = await csrfFetch("/api/links");
@@ -62,7 +70,7 @@ export const addLinkThunk = (link) => async (dispatch) => {
         body: JSON.stringify(link)
     });
     const data = await response.json();
-    dispatch(addLink(data.link));
+    dispatch(addLink(data));
     return response;
 }
 
@@ -85,13 +93,20 @@ export const deleteLinkThunk = (id) => async (dispatch) => {
     return response;
 }
 
+export const redirectThunk = (shortLink) => async (dispatch) => {
+    const response = await csrfFetch(`/redirect/${shortLink}`);
+    const data = await response.json();
+    dispatch(redirect(data));
+    return response;
+}
+
 //REDUCER
 const initialState = { allLinks: [], currentLink: null };
 
 const linksReducer = (state = initialState, action) => {
-    
+
     switch (action.type) {
-        case GET_LINKS:{
+        case GET_LINKS: {
             return { ...state, allLinks: action.payload }
         }
         case GET_LINK: {
@@ -100,18 +115,21 @@ const linksReducer = (state = initialState, action) => {
         case ADD_LINK: {
             return { ...state, allLinks: [...state.allLinks, action.payload] }
         }
-        case EDIT_LINK:{
+        case EDIT_LINK: {
             const allLinks = state.allLinks.map(link => {
-                if(link.id === action.payload.id) {
+                if (link.id === action.payload.id) {
                     return action.payload;
                 }
                 return link;
             });
             return { ...state, allLinks, currentLink: action.payload }
         }
-        case DELETE_LINK:{
+        case DELETE_LINK: {
             const allLinks = state.allLinks.filter(link => link.id !== action.payload.id);
             return { ...state, allLinks, currentLink: null }
+        }
+        case REDIRECT: {
+            return { ...state, currentLink: action.payload }
         }
         default:
             return state;

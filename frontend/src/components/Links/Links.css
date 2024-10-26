@@ -11,7 +11,7 @@
 
 .my-links-container {
     display: flex;
-    height: 82vh;
+    height: 80vh;
     flex-direction: column;
     justify-content: start;
     gap: 20px;
