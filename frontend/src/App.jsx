@@ -9,6 +9,7 @@ import LoginSignup from "./components/LoginSignup/LoginSignup";
 import Links from "./components/Links/Links";
 import Header from "./components/Navigation";
 import Footer from "./components/Navigation/Footer";
+import RedirectHandler from "./components/RedirectHandler";
 
 function Layout() {
   const dispatch = useDispatch();
@@ -49,6 +50,10 @@ const router = createBrowserRouter([
       {
         path: "links",
         element: <Links />
+      },
+      {
+        path: "/:shortLink",
+        element: <RedirectHandler />
       }
     ]
   }

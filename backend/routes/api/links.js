@@ -37,7 +37,7 @@ router.get('/:id', requireAuth, async (req, res) => {
                 userId: userId
             }
         });
-        
+
         if (!link) {
             return res.status(404).json({ error: 'Link not found' });
         }
@@ -114,5 +114,7 @@ router.delete('/:id', requireAuth, async (req, res) => {
         res.status(500).json({ error: error.message });
     }
 });
+
+
 
 module.exports = router;

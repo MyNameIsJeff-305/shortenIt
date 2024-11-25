@@ -94,8 +94,9 @@ export const deleteLinkThunk = (id) => async (dispatch) => {
 }
 
 export const redirectThunk = (shortLink) => async (dispatch) => {
-    const response = await csrfFetch(`/redirect/${shortLink}`);
+    const response = await csrfFetch(`/r/${shortLink}`);
     const data = await response.json();
+    // console.log(data, "data");
     dispatch(redirect(data));
     return response;
 }
